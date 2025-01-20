@@ -103,7 +103,7 @@ GET /api/articles?source=guardian&category=technology
 
 ## Project Structure
 
- app/
+    app/
     ├── Console/                
     │   ├── Commands/                   
     │       ├── FetchNewsCommand.php  
