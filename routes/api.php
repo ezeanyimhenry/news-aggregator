@@ -11,4 +11,4 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/articles', [ArticleController::class, 'index']);
 
-Route::get('/test', [TestController::class, 'test']);
+Route::get('/test/{service}', [TestController::class, 'test']);
