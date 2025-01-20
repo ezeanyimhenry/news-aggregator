@@ -101,6 +101,38 @@ GET /api/articles?source=guardian&category=technology
 - date_from: Filter from date
 - date_to: Filter to date
 
+## Project Structure
+
+app/
+├── Console/
+│   └── Commands/
+│       └── FetchNewsCommand.php
+├── Http/
+│   └── Controllers/
+│       └── ArticleController.php
+├── Interfaces/
+│   └── NewsSourceInterface.php
+├── Models/
+│   └── Article.php
+├── Providers/
+│   └── NewsServiceProvider.php
+├── Services/
+│   ├── News/
+│   │   ├── GuardianNewsService.php
+│   │   ├── NYTimesNewsService.php
+│   │   └── NewsAPIService.php
+│   └── NewsAggregatorService.php
+└── Models/
+    └── Article.php
+
+## Development
+
+### Running Tests
+
+```bash
+php artisan test
+```
+
 ## License
 
 This project is licensed under the MIT License. - see the [LICENSE](LICENSE) file for details.
