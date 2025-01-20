@@ -121,7 +121,8 @@ GET /api/articles?source=guardian&category=technology
     │       ├── GuardianNewsService.php  
     │       ├── NYTimesNewsService.php  
     │       ├── NewsAPIService.php   
-    │   ├── NewsAggregatorService.ph
+    │   ├── NewsAggregatorService.php
+    └── ...
     tests/
     ├── Feature/                
     │   ├── ArticleControllerTest.php
