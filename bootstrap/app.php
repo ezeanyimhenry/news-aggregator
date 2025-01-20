@@ -17,7 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
         FetchNewsCommand::class
     ])
     ->withSchedule(function (Schedule $schedule) {
-        $schedule->command('news:fetch')->everyMinute();
+        $schedule->command('news:fetch')->hourly();
     })
     ->withMiddleware(function (Middleware $middleware) {
         //
