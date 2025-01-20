@@ -104,24 +104,24 @@ GET /api/articles?source=guardian&category=technology
 ## Project Structure
 
 app/
-    ├── Console/
-    │   └── Commands/
-    │       └── FetchNewsCommand.php
-    ├── Http/
-    │   └── Controllers/
-    │       └── ArticleController.php
-    ├── Interfaces/
-    │   └── NewsSourceInterface.php
-    ├── Models/
-    │   └── Article.php
-    ├── Providers/
-    │   └── NewsServiceProvider.php
-    ├── Services/
-    │   ├── News/
-    │   │   ├── GuardianNewsService.php
-    │   │   ├── NYTimesNewsService.php
-    │   │   └── NewsAPIService.php
-    │   └── NewsAggregatorService.php
+├── Console/
+│    └── Commands/
+│        └── FetchNewsCommand.php
+├── Http/
+│    └── Controllers/
+│        └── ArticleController.php
+├── Interfaces/
+│    └── NewsSourceInterface.php
+├── Models/
+│    └── Article.php
+├── Providers/
+│    └── NewsServiceProvider.php
+├── Services/
+│    ├── News/
+│    │    ├── GuardianNewsService.php
+│    │    ├── NYTimesNewsService.php
+│    │    └── NewsAPIService.php
+│    └── NewsAggregatorService.php
 
 ## Development
 
