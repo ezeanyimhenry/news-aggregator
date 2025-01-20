@@ -37,6 +37,7 @@ class ArticleController extends Controller
             $query->where('source', $request->get('source'));
         }
         
-        return $query->paginate(20);
+        $perPage = $request->get('per_page', 20);
+        return $query->paginate($perPage);
     }
 }
