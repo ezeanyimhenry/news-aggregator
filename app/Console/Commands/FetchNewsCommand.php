@@ -21,13 +21,19 @@ class FetchNewsCommand extends Command
      */
     protected $description = 'Fetch news from all configured sources';
 
+    public function __construct(
+        private NewsAggregatorService $aggregator
+    ) {
+        parent::__construct();
+    }
+
     /**
      * Execute the console command.
      */
-    public function handle(NewsAggregatorService $aggregator)
+    public function handle()
     {
         $this->info('Fetching news...');
-        $aggregator->aggregateNews();
+        $this->aggregator->aggregateNews();
         $this->info('News fetched successfully!');
     }
 }

@@ -18,7 +18,7 @@ class TestController extends Controller
         } elseif ($service == 'newsapi') {
             return $newsAPIService->fetchArticles();
         } elseif ($service == 'news') {
-            // return $newsAggregatorService->aggregateNews();
+            return $newsAggregatorService->aggregateNews();
         }
     }
 }
