@@ -122,8 +122,7 @@ app/
 │   │   ├── NYTimesNewsService.php
 │   │   └── NewsAPIService.php
 │   └── NewsAggregatorService.php
-└── Models/
-    └── Article.php
+
 
 ## Development
 
