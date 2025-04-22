@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
     protected $fillable = [
         'title',
         'content',
@@ -16,7 +17,7 @@ class Article extends Model
         'url',
         'category'
     ];
-    
+
     protected $casts = [
         'published_at' => 'datetime'
     ];
