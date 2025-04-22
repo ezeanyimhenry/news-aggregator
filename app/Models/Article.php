@@ -15,7 +15,8 @@ class Article extends Model
         'source',
         'published_at',
         'url',
-        'category'
+        'category',
+        'thumbnail'
     ];
 
     protected $casts = [
