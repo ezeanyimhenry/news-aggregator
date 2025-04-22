@@ -39,7 +39,7 @@ class ArticleController extends Controller
         }
 
         $perPage = $request->get('per_page', 20);
-        $articles = $query->paginate($perPage);
+        $articles = $query->orderBy('published_at', 'desc')->paginate($perPage);
 
         $response = ['status' => 'success', 'data' => $articles];
 
