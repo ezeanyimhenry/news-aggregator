@@ -39,6 +39,18 @@ class ArticleController extends Controller
         }
 
         $perPage = $request->get('per_page', 20);
-        return $query->paginate($perPage);
+        $articles = $query->paginate($perPage);
+
+        $response = ['status' => 'success', 'data' => $articles];
+
+        if ($request->boolean('include_meta')) {
+            $response['meta'] = [
+                'categories' => Article::select('category')->distinct()->whereNotNull('category')->pluck('category')->sort()->values(),
+                'sources' => Article::select('source')->distinct()->whereNotNull('source')->pluck('source')->sort()->values(),
+            ];
+        }
+
+        return response()->json($response);
     }
+
 }
