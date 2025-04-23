@@ -47,6 +47,11 @@ class ArticleController extends Controller
             $response['meta'] = [
                 'categories' => Article::select('category')->distinct()->whereNotNull('category')->pluck('category')->sort()->values(),
                 'sources' => Article::select('source')->distinct()->whereNotNull('source')->pluck('source')->sort()->values(),
+                'source_counts' => Article::select('source')
+                    ->whereNotNull('source')
+                    ->groupBy('source')
+                    ->selectRaw('source, COUNT(*) as total')
+                    ->pluck('total', 'source'),
             ];
         }
 
