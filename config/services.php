@@ -38,7 +38,7 @@ return [
     'guardian' => [
         'api_key' => env('GUARDIAN_API_KEY'),
     ],
-    
+
     'nytimes' => [
         'api_key' => env('NYTIMES_API_KEY'),
     ],
@@ -46,5 +46,9 @@ return [
     'newsapi' => [
         'api_key' => env('NEWSAPI_KEY'),
     ],
+
+    'frontend' => [
+        'base_url' => env('FRONTEND_URL'),
+    ]
 
 ];
