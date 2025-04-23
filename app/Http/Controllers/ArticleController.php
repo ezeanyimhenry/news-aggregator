@@ -53,4 +53,50 @@ class ArticleController extends Controller
         return response()->json($response);
     }
 
+    public function random(Request $request)
+    {
+        $count = $request->get('count', 6);
+        $articles = Article::inRandomOrder()
+            ->limit($count)
+            ->get();
+
+        return response()->json(['status' => 'success', 'data' => $articles]);
+    }
+
+    public function byCategory(Request $request)
+    {
+        $category = $request->get('category');
+        $count = $request->get('count', 6);
+
+        $query = Article::where('category', $category);
+
+        if ($request->boolean('random', true)) {
+            $query->inRandomOrder();
+        } else {
+            $query->orderBy('published_at', 'desc');
+        }
+
+        $articles = $query->limit($count)->get();
+
+        return response()->json(['status' => 'success', 'data' => $articles]);
+    }
+
+    public function bySource(Request $request)
+    {
+        $source = $request->get('source');
+        $count = $request->get('count', 6);
+
+        $query = Article::where('source', 'like', "%$source%");
+
+        if ($request->boolean('random', true)) {
+            $query->inRandomOrder();
+        } else {
+            $query->orderBy('published_at', 'desc');
+        }
+
+        $articles = $query->limit($count)->get();
+
+        return response()->json(['status' => 'success', 'data' => $articles]);
+    }
+
 }
