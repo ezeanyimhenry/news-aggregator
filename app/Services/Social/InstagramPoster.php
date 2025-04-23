@@ -19,20 +19,30 @@ class InstagramPoster
 
     public function post(Article $article)
     {
-        try { // Create media container
-            $container = Http::post("https://graph.facebook.com/v18.0/{$this->igUserId}/media", [
+        try {
+            $caption = $article->title . "\n\n" . config('services.frontend.base_url') . "/$article->id";
+
+            // Step 1: Create a media container
+            $containerResponse = Http::post("https://graph.facebook.com/v22.0/{$this->igUserId}/media", [
                 'image_url' => $article->thumbnail,
-                'caption' => $article->title . "\n\n" . $article->url,
+                'caption' => $caption,
                 'access_token' => $this->accessToken
             ]);
 
-            // Publish it
-            Http::post("https://graph.facebook.com/v18.0/{$this->igUserId}/media_publish", [
-                'creation_id' => $container['id'],
+            $containerData = $containerResponse->json();
+
+            if (!isset($containerData['id'])) {
+                return;
+            }
+
+            // Step 2: Publish the container
+            $publishResponse = Http::post("https://graph.facebook.com/v22.0/{$this->igUserId}/media_publish", [
+                'creation_id' => $containerData['id'],
                 'access_token' => $this->accessToken
             ]);
+
         } catch (\Exception $e) {
-            Log::error("Failed to Share to Instagram: $e");
+            Log::error("Instagram Share Failed: " . $e->getMessage());
         }
     }
 }

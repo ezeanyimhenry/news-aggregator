@@ -14,9 +14,9 @@ class SocialShareService
             (new FacebookPoster($credentials['facebook']))->post($article);
         }
 
-        // if (isset($credentials['instagram'])) {
-        //     (new InstagramPoster($credentials['instagram']))->post($article);
-        // }
+        if (isset($credentials['instagram'])) {
+            (new InstagramPoster($credentials['instagram']))->post($article);
+        }
 
         // if (isset($credentials['twitter'])) {
         //     (new TwitterPoster($credentials['twitter']))->post($article);
