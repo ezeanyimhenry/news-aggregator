@@ -104,4 +104,9 @@ class ArticleController extends Controller
         return response()->json(['status' => 'success', 'data' => $articles]);
     }
 
+    public function byId(Article $article)
+    {
+        return response()->json(['status' => 'success', 'data' => $article]);
+    }
+
 }

@@ -13,5 +13,6 @@ Route::get('/articles', [ArticleController::class, 'index']);
 Route::get('/articles/random', [ArticleController::class, 'random']);
 Route::get('/articles/category', [ArticleController::class, 'byCategory']);
 Route::get('/articles/source', [ArticleController::class, 'bySource']);
+Route::get('/articles/{article}', [ArticleController::class, 'byId']);
 
 Route::get('/test/{service}', [TestController::class, 'test']);
