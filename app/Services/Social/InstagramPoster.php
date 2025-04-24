@@ -127,11 +127,11 @@ HTML;
 
             // Step 2: Convert HTML to image
             $filename = 'custom/' . uniqid('insta_') . '.jpg';
-            $imagePath = Storage::disk('public')->path($filename);
+            $imagePath = public_path($filename);
             // $imagePath = $this->convertHtmlToJpg($article, $filename);
             // dd($imagePath);
             // Make sure the directory exists
-            $directory = Storage::disk('public')->path('custom');
+            $directory = public_path('custom');
             if (!file_exists($directory)) {
                 mkdir($directory, 0755, true);
             }
@@ -160,7 +160,7 @@ HTML;
             unlink($tempHtmlPath);
 
             // Get the full public URL
-            $publicUrl = url('storage/' . $filename);
+            $publicUrl = url($filename);
 
             // Prepare the caption
             $caption = $article->title . "\n\n" . config('services.frontend.base_url') . "/$article->id";
