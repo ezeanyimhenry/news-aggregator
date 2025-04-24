@@ -144,7 +144,7 @@ HTML;
                 Browsershot::html($htmlContent)
                     ->windowSize(1080, 1080)
                     ->deviceScaleFactor(1)
-                    ->disableJavascript()
+                    ->waitForFunction('Array.from(document.images).every(img => img.complete)')
                     ->timeout(120)
                     ->waitUntilNetworkIdle(false)
                     ->noSandbox()
@@ -222,4 +222,6 @@ HTML;
 
         return $tempFile;
     }
+
+
 }
