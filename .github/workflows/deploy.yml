@@ -1,0 +1,63 @@
+name: 🚀 Deploy News Aggregator API on Push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: 🔍 Prepare changed files for deployment
+        id: changed-files
+        run: |
+          # Debug: Print current directory
+          echo "Current directory: $(pwd)"
+
+          # Get and display list of changed files
+          CHANGED_FILES=$(git diff --diff-filter=ACMRT --name-only HEAD^ HEAD)
+          echo "Files that changed:"
+          echo "$CHANGED_FILES"
+
+          # Create directory for changed files
+          mkdir -p ./changed_files
+
+          # Copy each changed file while maintaining structure
+          echo "$CHANGED_FILES" | while read -r file; do
+            if [ -n "$file" ] && [ -f "$file" ]; then
+              echo "Processing file: $file"
+              mkdir -p "./changed_files/$(dirname "$file")"
+              cp "$file" "./changed_files/$file"
+              echo "Copied $file to ./changed_files/$file"
+            fi
+          done
+
+          # Debug: List contents of changed_files directory
+          echo "Contents of changed_files directory:"
+          ls -la ./changed_files
+
+      - name: 📂 Sync changed files
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+          server: ${{ secrets.SSH_SERVER }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          local_path: "./*" # Removed wildcard
+          remote_path: ${{ secrets.REMOTE_PATH }}
+          exclude: |
+            **/.env
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            .github
+            **/vendor/**
+
+      - name: 🚀 Deployment successful
+        run: echo "Deployment to server was successful!"
