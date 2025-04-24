@@ -49,6 +49,14 @@ return [
 
     'frontend' => [
         'base_url' => env('FRONTEND_URL'),
-    ]
+        'logo' => env('FRONTEND_LOGO'),
+    ],
+
+    'twitter' => [
+        'consumer_key' => env('TWITTER_API_KEY'),
+        'consumer_secret' => env('TWITTER_API_SECRET'),
+        'access_token' => env('TWITTER_ACCESS_TOKEN'),
+        'access_secret' => env('TWITTER_ACCESS_SECRET'),
+    ],
 
 ];

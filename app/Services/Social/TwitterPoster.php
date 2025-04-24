@@ -1,27 +1,22 @@
 <?php
 namespace App\Services\Social;
 
+use Abraham\TwitterOAuth\TwitterOAuth;
 use App\Models\Article;
+use App\Notifications\TweetNotification;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class TwitterPoster
 {
-    private $accessToken;
-
-    public function __construct(array $config)
-    {
-        $this->accessToken = $config['access_token'];
-    }
 
     public function post(Article $article)
     {
         try {
-            Http::withToken($this->accessToken)->post('https://api.twitter.com/2/tweets', [
-                'text' => $article->title . ' ' . $article->url
-            ]);
+            $article->notify(new TweetNotification($article));
         } catch (\Exception $e) {
-            Log::error("Failed to Share to Twitter: $e");
+            Log::error("Twitter post failed: " . $e->getMessage());
         }
     }
+
 }

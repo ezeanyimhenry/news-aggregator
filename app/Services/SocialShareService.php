@@ -18,8 +18,8 @@ class SocialShareService
             (new InstagramPoster($credentials['instagram']))->post($article);
         }
 
-        // if (isset($credentials['twitter'])) {
-        //     (new TwitterPoster($credentials['twitter']))->post($article);
-        // }
+        if (isset($credentials['twitter'])) {
+            (new TwitterPoster())->post($article);
+        }
     }
 }
