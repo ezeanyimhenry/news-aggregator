@@ -141,7 +141,10 @@ HTML;
             // render($htmlContent);
             Log::info("After getting content for Shot");
             try {
+                $chromePath = env('PUPPETEER_EXECUTABLE_PATH', '');
+
                 Browsershot::html($htmlContent)
+                    // ->setChromePath($chromePath)
                     ->windowSize(1080, 1080)
                     ->deviceScaleFactor(1)
                     ->waitForFunction('Array.from(document.images).every(img => img.complete)')
@@ -189,6 +192,11 @@ HTML;
 
             $publishData = $publishResponse->json();
             Log::info('Instagram Publish Response: ' . json_encode($publishData));
+
+            if (file_exists($imagePath)) {
+                File::delete($imagePath);
+                Log::info("Deleted image: $imagePath");
+            }
 
             return isset($publishData['id']);
 
