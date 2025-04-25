@@ -31,13 +31,19 @@
     }
 
     .card h1 {
-        color: white;
+        color: #ffffff;
         text-align: center;
-        font-size: 3.0rem;
+        font-size: 3.6rem;
+        font-weight: 700;
+        line-height: 1.3;
         margin: 0;
+        padding: 20px;
         position: absolute;
         top: 40px;
         width: 90%;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        font-family: 'Helvetica Neue', 'Segoe UI', sans-serif;
     }
 
     .image-container {
