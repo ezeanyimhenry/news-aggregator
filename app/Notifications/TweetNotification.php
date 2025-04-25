@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notification;
 use NotificationChannels\Twitter\TwitterChannel;
 use NotificationChannels\Twitter\TwitterStatusUpdate;
 
-class TweetNotification extends Notification
+class TweetNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -34,9 +34,9 @@ class TweetNotification extends Notification
         return [TwitterChannel::class];
     }
 
-    public function toTwitter($article)
+    public function toTwitter($notifiable)
     {
-        $post = $article->title . ' ' . config('services.frontend.base_url') . "/$article->id";
+        $post = $this->article->title . ' ' . config('services.frontend.base_url') . "/{$this->article->id}";
         return new TwitterStatusUpdate($post);
     }
 
