@@ -24,7 +24,6 @@ class NYTimesNewsService implements NewsSourceInterface
 
     private function formatArticles($articles): array
     {
-        dd($articles);
         return array_map(function ($article) {
             $imageUrl = null;
 
