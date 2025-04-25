@@ -13,7 +13,7 @@ class TwitterPoster
     public function post(Article $article)
     {
         try {
-            $article->notify(new TweetNotification($article)->delay(now()->addMinutes(1)));
+            $article->notify((new TweetNotification($article))->delay(now()->addMinutes(1)));
         } catch (\Exception $e) {
             Log::error("Twitter post failed: " . $e->getMessage());
         }

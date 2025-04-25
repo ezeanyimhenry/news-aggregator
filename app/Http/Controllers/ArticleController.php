@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
+    use RefreshDatabase;
     public function index(Request $request)
     {
         $query = Article::query();
