@@ -135,11 +135,11 @@ HTML;
             if (!file_exists($directory)) {
                 mkdir($directory, 0755, true);
             }
-            Log::info("Before Shot");
+
             // Use Browsershot to convert HTML to image
             $htmlContent = file_get_contents($tempHtmlPath);
             // render($htmlContent);
-            Log::info("After getting content for Shot");
+
             try {
                 $chromePath = env('PUPPETEER_EXECUTABLE_PATH', '');
 
@@ -152,12 +152,12 @@ HTML;
                     ->waitUntilNetworkIdle(false)
                     ->noSandbox()
                     ->save($imagePath);
-                Log::info("Browsershot conversion successful");
+
             } catch (\Exception $e) {
                 Log::error("Browsershot error: " . $e->getMessage());
                 throw $e;
             }
-            Log::info("After Shot");
+
 
             // Delete temporary HTML file
             unlink($tempHtmlPath);
@@ -167,7 +167,7 @@ HTML;
 
             // Prepare the caption
             $caption = $article->title . "\n\n" . config('services.frontend.base_url') . "/$article->id";
-            Log::info("Posting to Instagram with image URL: " . $publicUrl);
+
 
             // Step 3: Create media container using edited image URL
             $containerResponse = Http::post("https://graph.facebook.com/v22.0/{$this->igUserId}/media", [
@@ -177,7 +177,7 @@ HTML;
             ]);
 
             $containerData = $containerResponse->json();
-            Log::info('Instagram Container: ' . json_encode($containerData));
+
 
             if (!isset($containerData['id'])) {
                 Log::error('Instagram container creation failed: ' . json_encode($containerData));
@@ -191,11 +191,9 @@ HTML;
             ]);
 
             $publishData = $publishResponse->json();
-            Log::info('Instagram Publish Response: ' . json_encode($publishData));
 
             if (file_exists($imagePath)) {
                 File::delete($imagePath);
-                Log::info("Deleted image: $imagePath");
             }
 
             return isset($publishData['id']);
