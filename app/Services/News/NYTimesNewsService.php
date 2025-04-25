@@ -24,7 +24,25 @@ class NYTimesNewsService implements NewsSourceInterface
 
     private function formatArticles($articles): array
     {
+        dd($articles);
         return array_map(function ($article) {
+            $imageUrl = null;
+
+            if (!empty($article['multimedia'])) {
+                // Try to find the best image format
+                foreach ($article['multimedia'] as $media) {
+                    if ($media['format'] === 'Normal') {
+                        $imageUrl = $media['url'];
+                        break;
+                    }
+                }
+
+                // Fallback to the first available image
+                if (!$imageUrl && isset($article['multimedia'][0]['url'])) {
+                    $imageUrl = $article['multimedia'][1]['url'];
+                }
+            }
+
             return [
                 'title' => $article['title'],
                 'content' => $article['abstract'],
@@ -32,7 +50,7 @@ class NYTimesNewsService implements NewsSourceInterface
                 'published_at' => $article['published_date'],
                 'url' => $article['url'],
                 'category' => $article['section'],
-                'thumbnail' => $article['multimedia'][0]['url'] ?? null
+                'thumbnail' => $imageUrl
             ];
         }, $articles);
     }
